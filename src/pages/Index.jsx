@@ -20,7 +20,11 @@ const Index = () => {
       });
       return;
     }
-    setTodos([...todos, inputValue]);
+    const newTodo = {
+      content: inputValue,
+      timestamp: new Date().toISOString(),
+    };
+    setTodos([...todos, newTodo]);
     setInputValue("");
   };
 
@@ -39,9 +43,14 @@ const Index = () => {
             <IconButton icon={<FaPlus />} onClick={handleAddTodo} colorScheme="blue" aria-label="Add todo" />
           </HStack>
           <VStack spacing={2} align="stretch">
-            {todos.map((todo, index) => (
+            {todos.map(({ content, timestamp }, index) => (
               <HStack key={index} justifyContent="space-between">
-                <Text>{todo}</Text>
+                <VStack align="start">
+                  <Text>{content}</Text>
+                  <Text fontSize="sm" color="gray.500">
+                    {new Date(timestamp).toLocaleTimeString()}
+                  </Text>
+                </VStack>
                 <IconButton icon={<FaTrash />} onClick={() => handleDeleteTodo(index)} colorScheme="red" aria-label="Delete todo" />
               </HStack>
             ))}
