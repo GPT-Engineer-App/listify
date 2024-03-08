@@ -20,7 +20,7 @@ const Index = () => {
       });
       return;
     }
-    setTodos([...todos, inputValue]);
+    setTodos([...todos, { content: inputValue, timestamp: new Date() }]);
     setInputValue("");
   };
 
